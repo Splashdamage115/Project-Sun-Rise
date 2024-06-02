@@ -10,7 +10,8 @@ enum class GameModeClass
 	None,
 	Menu,
 	Gameplay,
-	Settings
+	Settings,
+	LevelEditor
 };
 
 struct Vector2i

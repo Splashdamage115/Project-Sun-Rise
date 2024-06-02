@@ -3,6 +3,7 @@
 
 #include "InputSwitcher.hpp"
 #include "Pawn.h"
+#include "Camera.h"
 
 class Player : public Pawn
 {
@@ -14,6 +15,7 @@ private:
 	std::shared_ptr<sf::Sprite> m_body;
 	sf::Texture m_texture;
 	std::unique_ptr<InputBasic> m_inputType;
+	CameraTracker m_followCam;
 };
 
 #endif // !PLAYER_H

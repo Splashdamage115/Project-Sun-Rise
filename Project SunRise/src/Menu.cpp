@@ -64,7 +64,8 @@ void Menu::resetLevel()
 
 		m_buttons.at(0).setFunction([]() -> void { Game::s_changeGameMode = true; Game::s_currentGameMode = GameModeClass::Gameplay; });
 		m_buttons.at(1).setFunction([]() -> void { Game::s_changeGameMode = true; Game::s_currentGameMode = GameModeClass::Settings; });
-		m_buttons.at(2).setFunction([]() -> void { Game::s_gameActive = false; });
+		m_buttons.at(2).setFunction([]() -> void { Game::s_changeGameMode = true; Game::s_currentGameMode = GameModeClass::LevelEditor; });
+		m_buttons.at(3).setFunction([]() -> void { Game::s_gameActive = false; });
 	}
 }
 

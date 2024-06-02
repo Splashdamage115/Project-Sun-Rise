@@ -16,9 +16,12 @@ Player::Player()
 	RenderObject::getInstance().add(m_body);
 
 	m_inputType = std::make_unique<KeyboardInput>();
+
+	m_followCam.setCameraType(CameraTracker::CameraType::Delayed_Follow);
 }
 
 void Player::update()
 {
 	m_body->move(m_inputType->calculateDisplacement() * m_moveSpeed * Game::deltaTime);
+	m_followCam.update(m_body->getPosition());
 }

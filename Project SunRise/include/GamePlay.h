@@ -7,6 +7,7 @@
 
 // for debugging purposes
 #include "SimpleButton.h"
+#include "LevelLoader.h"
 
 class GamePlay : public GameMode
 {

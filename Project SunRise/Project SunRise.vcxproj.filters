@@ -58,6 +58,12 @@
     <Filter Include="Resource Files\YAML_PARSER">
       <UniqueIdentifier>{b7114d13-99ca-4c0d-b632-c526ca100284}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\LevelEditor">
+      <UniqueIdentifier>{9acb04cb-b900-4733-b5ac-db5bcf9bbe66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\LevelEditor">
+      <UniqueIdentifier>{816394d1-1ca0-4c4f-8341-c3beb95ea1b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Button.cpp">
@@ -101,6 +107,15 @@
     </ClCompile>
     <ClCompile Include="src\TileYamlLoader.cpp">
       <Filter>Source Files\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>Source Files\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LevelLoader.cpp">
+      <Filter>Source Files\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LevelEditor.cpp">
+      <Filter>Source Files\LevelEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +293,15 @@
     <ClInclude Include="include\TileHolder.h">
       <Filter>Header Files\GamePlay</Filter>
     </ClInclude>
+    <ClInclude Include="include\Camera.h">
+      <Filter>Header Files\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LevelLoader.h">
+      <Filter>Header Files\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LevelEditor.h">
+      <Filter>Header Files\LevelEditor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="ASSETS\IMAGES\Buttons\rotate_button.png">
@@ -308,6 +332,9 @@
       <Filter>Resource Files\DATA\SETTINGS</Filter>
     </None>
     <None Include="ASSETS\DATA\TileSheet.yaml">
+      <Filter>Resource Files\DATA</Filter>
+    </None>
+    <None Include="ASSETS\DATA\Map.std">
       <Filter>Resource Files\DATA</Filter>
     </None>
   </ItemGroup>

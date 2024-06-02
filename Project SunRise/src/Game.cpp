@@ -10,6 +10,7 @@
 #include "Menu.h"
 #include "Settings.h"
 #include "GamePlay.h"
+#include "LevelEditor.h"
 
 
 // setup of static variables
@@ -30,6 +31,8 @@ Game::Game()
 	GlobalFontStorage::getInstance().init();
 
 	changeGameMode();
+
+	srand(static_cast<unsigned int>(time(nullptr)));
 }
 
 /// <summary>
@@ -151,6 +154,10 @@ void Game::changeGameMode()
 			m_gameMode = std::make_shared<GamePlay>();
 		else if (s_currentGameMode == GameModeClass::Settings)
 			m_gameMode = std::make_shared<Settings>();
+		else if (s_currentGameMode == GameModeClass::LevelEditor)
+			m_gameMode = std::make_shared<LevelEditor>();
+
+		RenderObject::getInstance().centerView(1.f, sf::Vector2f(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f));
 
 		s_changeGameMode = false;
 	}
