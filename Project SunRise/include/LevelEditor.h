@@ -6,6 +6,7 @@
 #include "LevelLoader.h"
 #include "Camera.h"
 #include "SimpleButton.h"
+#include "Button.h"
 
 class LevelEditor : public GameMode
 {
@@ -23,14 +24,19 @@ private:
 
 	void loadTiles();
 
+	std::shared_ptr<sf::Text> m_currentEditingLevel;
 	std::vector<std::shared_ptr<sf::Sprite>> m_tiles;
 	std::vector<int> m_level;
 	LevelLoader m_levelLoader;
 	float m_cameraSpeed = 10.f;
 
+	std::vector<Button> m_arrows;
+	sf::Texture m_arrowTexture;
 	sf::Vector2f m_camPos{ 0.f,0.f };
 	CameraTracker m_cam;
 	std::vector<std::shared_ptr<SimpleButton>> m_speedButtons;
+
+	int m_fileToEdit = 1;
 };
 
 #endif // !LEVEL_EDITOR_H

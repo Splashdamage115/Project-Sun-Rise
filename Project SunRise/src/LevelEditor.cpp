@@ -1,5 +1,6 @@
 #include "LevelEditor.h"
 #include "TileLookupTable.h"
+#include "GlobalFontStorage.h"
 
 /// <summary>
 /// default constructor
@@ -7,11 +8,41 @@
 LevelEditor::LevelEditor()
 {
 	// NOTE: reset the level in the constructor
-	loadTiles();
 	m_cam.setCameraType(CameraTracker::CameraType::Delayed_Follow);
 
 	m_speedButtons.push_back(SimpleButtonHolder::getInstance().spawnNewButton("CAMERA SPEED +++"));
 	m_speedButtons.push_back(SimpleButtonHolder::getInstance().spawnNewButton("CAMERA SPEED ---"));
+
+	m_currentEditingLevel = std::make_shared<sf::Text>();
+
+	m_currentEditingLevel->setFont(*GlobalFontStorage::getInstance().getFont());
+	m_currentEditingLevel->setString(std::to_string(m_fileToEdit));
+
+	m_currentEditingLevel->setFillColor(sf::Color::White);
+	m_currentEditingLevel->setOutlineColor(sf::Color::Black);
+	m_currentEditingLevel->setOutlineThickness(0.5f);
+	m_currentEditingLevel->setOrigin(m_currentEditingLevel->getGlobalBounds().width / 2.f, m_currentEditingLevel->getGlobalBounds().height / 2.f);
+	m_currentEditingLevel->setPosition(140.f, 200.f);
+
+	RenderObject::getInstance().addHUD(m_currentEditingLevel);
+
+
+	if (!m_arrowTexture.loadFromFile("ASSETS\\IMAGES\\Buttons\\ArrowButton.png")) //rotate_button.png
+	{
+		DEBUG_MSG("COULDNT FIND BUTTON");
+	}
+	else
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			m_arrows.push_back(Button());
+			m_arrows.at(i).init(m_arrowTexture, sf::Vector2i(64, 64), sf::Vector2f(20.f + (180.f * i), 168.f), 6, 0.5f);
+			//m_buttons.at(i).init(m_buttonTexture, sf::Vector2i(256, 128), sf::Vector2f(100.f, 600.f + (150 * i)), 4, 0.5f);
+		}
+	}
+	m_arrows.at(0).changeFrameHeight(1);
+
+	loadTiles();
 }
 
 /// <summary>
@@ -60,6 +91,13 @@ void LevelEditor::processKeys(sf::Event& t_event)
 /// <param name="t_deltaTime">delta time passed from game</param>
 void LevelEditor::update()
 {
+
+	for (unsigned int i = 0; i < m_arrows.size(); i++)
+	{
+		m_arrows.at(i).checkBounds(m_mousePos);
+		m_arrows.at(i).updateFrame();
+	}
+
 	// change the camera speed based off top right buttons
 	if (m_speedButtons.at(0)->clicked())
 		m_cameraSpeed++;
@@ -91,26 +129,64 @@ void LevelEditor::processMouse(sf::Event& t_event)
 	else if (sf::Event::MouseButtonPressed == t_event.type)
 	{
 		//mouseButtonDown();
+		for (unsigned int i = 0; i < m_arrows.size(); i++)
+			if (m_arrows.at(i).releaseButton())
+			{
+				if (i == 0)
+				{
+					m_fileToEdit--;
+				}
+				else
+				{
+					m_fileToEdit++;
+				}
+				if (m_fileToEdit < 1)
+					m_fileToEdit = 1;
+				if (m_fileToEdit > MAP_AMT)
+					m_fileToEdit = MAP_AMT;
+				loadTiles();
+			}
 	}
 	else if (sf::Event::MouseButtonReleased == t_event.type)
 	{
 		//mouseButtonUp();
-		for (int i = m_tiles.size() - 1; i >= 0; i--)
+		if (t_event.mouseButton.button == sf::Mouse::Left)
 		{
-			if (m_tiles.at(i)->getGlobalBounds().contains(m_mousePosGlobal))
+			for (int i = m_tiles.size() - 1; i >= 0; i--)
 			{
-				m_level.at(i)++;
-				break;
+
+				if (m_tiles.at(i)->getGlobalBounds().contains(m_mousePosGlobal))
+				{
+					m_level.at(i)++;
+					if (m_level.at(i) > MAX_TILE_NUM)
+						m_level.at(i) = MAX_TILE_NUM;
+					break;
+				}
 			}
 		}
-		m_levelLoader.writeLevelToFile(m_level);
+		if (t_event.mouseButton.button == sf::Mouse::Right)
+		{
+			for (int i = m_tiles.size() - 1; i >= 0; i--)
+			{
+
+				if (m_tiles.at(i)->getGlobalBounds().contains(m_mousePosGlobal))
+				{
+					m_level.at(i)--;
+					if (m_level.at(i) <= 0)
+						m_level.at(i) = 1;
+					break;
+				}
+			}
+		}
+		m_levelLoader.writeLevelToFile(m_level, m_fileToEdit);
 		loadTiles();
 	}
 }
 
 void LevelEditor::loadTiles()
 {
-	m_level = m_levelLoader.readFileToBuffer();
+	m_level = m_levelLoader.readFileToBuffer(m_fileToEdit);
+	m_currentEditingLevel->setString(std::to_string(m_fileToEdit));
 
 
 	RenderObject::getInstance().clearBG();

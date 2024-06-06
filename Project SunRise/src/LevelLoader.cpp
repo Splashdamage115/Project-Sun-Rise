@@ -1,9 +1,30 @@
 #include "LevelLoader.h"
 #include "DEBUG.h"
 
-std::vector<int> LevelLoader::readFileToBuffer()
+template<typename T>void LevelLoader::skipLines(int t_amtToSkip, T& t_file)
+{
+	t_file.seekg(std::ios::beg);
+
+	if (t_amtToSkip <= 0)
+	{
+		std::cout << "ERROR, LINE VALUE INCORRECT\n";
+
+		t_file.close();
+		exit(1);
+	}
+	for (unsigned int i = 0; i < t_amtToSkip - 1; i++)
+	{
+		t_file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	}
+
+	t_file.seekg(t_file.tellg());
+}
+
+std::vector<int> LevelLoader::readFileToBuffer(int t_lineToRead)
 {
 	std::ifstream input(".\\ASSETS\\DATA\\Map.std", std::ios::binary);
+
+	skipLines(t_lineToRead, input);
 
 	if (input.good())
 	{
@@ -28,10 +49,10 @@ std::vector<int> LevelLoader::readFileToBuffer()
 			tileNum.push_back(std::stoi(holder));
 		}
 
-		for (size_t i = 0; i < tileNum.size(); i++)
+		/*for (size_t i = 0; i < tileNum.size(); i++)
 		{
 			DEBUG_MSG(tileNum.at(i));
-		}
+		}*/
 		input.close();
 		return tileNum;
 	}
@@ -42,12 +63,13 @@ std::vector<int> LevelLoader::readFileToBuffer()
 	}
 }
 
-void LevelLoader::writeLevelToFile(std::vector<int> t_level)
+void LevelLoader::writeLevelToFile(std::vector<int> t_level, int t_lineToWrite)
 {
-	std::ofstream output(".\\ASSETS\\DATA\\Map.std", std::ios::binary);
+	std::fstream output(".\\ASSETS\\DATA\\Map.std", std::ios::in | std::ios::out);
 
 	if (output.good())
 	{
+		skipLines(t_lineToWrite, output);
 		for (auto i : t_level)
 		{
 			output << i << ' ';
@@ -61,5 +83,3 @@ void LevelLoader::writeLevelToFile(std::vector<int> t_level)
 		exit(2);
 	}
 }
-
-

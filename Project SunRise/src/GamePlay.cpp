@@ -84,7 +84,7 @@ void GamePlay::processMouse(sf::Event& t_event)
 void GamePlay::spawnTiles()
 {
 	LevelLoader levelLoader;
-	std::vector<int>level = levelLoader.readFileToBuffer();
+	std::vector<int>level = levelLoader.readFileToBuffer(rand() % 7 + 1);
 
 
 	RenderObject::getInstance().clearBG();
@@ -95,29 +95,48 @@ void GamePlay::spawnTiles()
 	float scaleFactor = 1.f;
 	int height = 16;
 	float width = 62.f;
+
+	int xBackBig = -1;
+	int heightBig = 4; // height of tiles on the diagonal (how many level tiles will spawn)
+	float widthBig = 1024.f;
+	float xOffset = 0.f;
+	float yOffset = 0.f;
 	
-	for (unsigned int i = 0; i < 256; i++)
+	// 16 is the amount of level tiles spawned
+	for(unsigned int u = 0; u < 16; u++)
 	{
-		if (i % height == 0)
-			xBack++;
-		std::shared_ptr<sf::Sprite> newTile;
-		newTile = std::make_shared<sf::Sprite>();
-		newTile->setTexture(TileLookupTable::getInstance().getNumber(level.at(i)).tileTexture);
-		newTile->setOrigin(newTile->getGlobalBounds().width / 2.f, newTile->getGlobalBounds().height / 2.f);
-		newTile->setScale(scaleFactor, scaleFactor);
-		newTile->setPosition(1024.f - ((xBack) * (width * scaleFactor)) + ((i % height) * (width * scaleFactor)), (i % height) * (width / 2.f * scaleFactor) + (xBack * (width / 2.f * scaleFactor)));
-		bool addNew = true;
-		for (unsigned int u = 0; u < heights.size(); u++)
+		if (u % heightBig == 0)
+			xBackBig++;
+
+		xOffset = -((xBackBig) * (widthBig)) + ((u % heightBig) * (widthBig));
+		yOffset = (u % heightBig) * (widthBig / 2.f) + (xBackBig * (widthBig / 2.f));
+
+		level = levelLoader.readFileToBuffer(rand() % 7 + 1);
+
+		for (unsigned int i = 0; i < 256; i++)
 		{
-			if(newTile->getPosition().y == heights.at(u))
+			if (i % height == 0)
+				xBack++;
+			std::shared_ptr<sf::Sprite> newTile;
+			newTile = std::make_shared<sf::Sprite>();
+			newTile->setTexture(TileLookupTable::getInstance().getNumber(level.at(i)).tileTexture);
+			newTile->setOrigin(newTile->getGlobalBounds().width / 2.f, newTile->getGlobalBounds().height / 2.f);
+			newTile->setScale(scaleFactor, scaleFactor);
+			newTile->setPosition(xOffset - ((xBack) * (width * scaleFactor)) + ((i % height) * (width * scaleFactor)), yOffset + (i % height) * (width / 2.f * scaleFactor) + (xBack * (width / 2.f * scaleFactor)));
+			bool addNew = true;
+			for (unsigned int u = 0; u < heights.size(); u++)
 			{
-				addNew = false;
-				break;
+				if (newTile->getPosition().y == heights.at(u))
+				{
+					addNew = false;
+					break;
+				}
 			}
+			if (addNew)
+				heights.push_back(newTile->getPosition().y);
+			m_tiles.push_back(newTile);
 		}
-		if(addNew)
-			heights.push_back(newTile->getPosition().y);
-		m_tiles.push_back(newTile);
+		xBack = -1;
 	}
 
 	std::sort(heights.begin(), heights.end());

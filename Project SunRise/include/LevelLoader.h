@@ -9,8 +9,9 @@
 class LevelLoader
 {
 public:
-	std::vector<int> readFileToBuffer();
-	void writeLevelToFile(std::vector<int> t_level);
+	template<typename T>void skipLines(int t_amtToSkip, T& t_file);
+	std::vector<int> readFileToBuffer(int t_lineToRead);
+	void writeLevelToFile(std::vector<int> t_level, int t_lineToWrite);
 private:
 
 };

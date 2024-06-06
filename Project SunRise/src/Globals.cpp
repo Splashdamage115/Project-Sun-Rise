@@ -1,0 +1,1 @@
+int MAX_TILE_NUM = 0;

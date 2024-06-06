@@ -16,6 +16,7 @@ void operator >> (const YAML::Node& t_node, std::vector<TileType>& t_tiles)
 		newTile.tileTexture = newTileTexture;
 		t_tiles.push_back(newTile);
 	}
+	MAX_TILE_NUM = t_tiles.size() - 1;
 }
 
 

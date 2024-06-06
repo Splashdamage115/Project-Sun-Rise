@@ -25,6 +25,7 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameMode.cpp" />
     <ClCompile Include="src\GamePlay.cpp" />
+    <ClCompile Include="src\Globals.cpp" />
     <ClCompile Include="src\LevelEditor.cpp" />
     <ClCompile Include="src\LevelLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
