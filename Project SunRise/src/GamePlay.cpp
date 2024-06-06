@@ -80,11 +80,11 @@ void GamePlay::processMouse(sf::Event& t_event)
 	}
 }
 
-
+// MOVE TO A NEW FILE
 void GamePlay::spawnTiles()
 {
 	LevelLoader levelLoader;
-	std::vector<int>level = levelLoader.readFileToBuffer(rand() % 7 + 1);
+	std::vector<int>level = levelLoader.readFileToBuffer(rand() % MAP_AMT + 1);
 
 
 	RenderObject::getInstance().clearBG();

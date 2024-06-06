@@ -150,6 +150,7 @@ void LevelEditor::processMouse(sf::Event& t_event)
 	else if (sf::Event::MouseButtonReleased == t_event.type)
 	{
 		//mouseButtonUp();
+		// left mouse, increment level tile (temporary)
 		if (t_event.mouseButton.button == sf::Mouse::Left)
 		{
 			for (int i = m_tiles.size() - 1; i >= 0; i--)
@@ -164,6 +165,8 @@ void LevelEditor::processMouse(sf::Event& t_event)
 				}
 			}
 		}
+
+		// right mouse, decrement level tile (temporary)
 		if (t_event.mouseButton.button == sf::Mouse::Right)
 		{
 			for (int i = m_tiles.size() - 1; i >= 0; i--)
