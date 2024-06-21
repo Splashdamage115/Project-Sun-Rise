@@ -120,6 +120,12 @@
     <ClCompile Include="src\Globals.cpp">
       <Filter>Source Files\Gloabals</Filter>
     </ClCompile>
+    <ClCompile Include="src\Bullet.cpp">
+      <Filter>Source Files\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BulletManager.cpp">
+      <Filter>Source Files\GamePlay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameMode.h">
@@ -305,6 +311,12 @@
     <ClInclude Include="include\LevelEditor.h">
       <Filter>Header Files\LevelEditor</Filter>
     </ClInclude>
+    <ClInclude Include="include\Bullet.h">
+      <Filter>Header Files\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BulletManager.h">
+      <Filter>Header Files\GamePlay</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="ASSETS\IMAGES\Buttons\rotate_button.png">
@@ -338,6 +350,9 @@
       <Filter>Resource Files\DATA</Filter>
     </None>
     <None Include="ASSETS\DATA\Map.std">
+      <Filter>Resource Files\DATA</Filter>
+    </None>
+    <None Include="ASSETS\DATA\ClutterSheet.yaml">
       <Filter>Resource Files\DATA</Filter>
     </None>
   </ItemGroup>

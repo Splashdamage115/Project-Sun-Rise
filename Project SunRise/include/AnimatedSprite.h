@@ -41,6 +41,7 @@ public:
 			target.draw(m_sprite, states);
 	}
 	void setScale(sf::Vector2f t_newScale) { m_sprite.setScale(t_newScale); }
+	sf::Vector2f getPosition() { return m_sprite.getPosition(); }
 private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;

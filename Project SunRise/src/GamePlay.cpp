@@ -6,6 +6,8 @@
 GamePlay::GamePlay()
 {
 	spawnTiles();
+
+	
 }
 
 /// <summary>
@@ -55,6 +57,7 @@ void GamePlay::processKeys(sf::Event& t_event)
 void GamePlay::update()
 {
 	m_player.update();	
+	m_bulletManager.updateBullets();
 }
 
 /// <summary>
@@ -66,21 +69,22 @@ void GamePlay::processMouse(sf::Event& t_event)
 	{
 		findMousePos(t_event);
 		findMousePosGlobal(t_event);
-
 	}
 	else if (sf::Event::MouseButtonPressed == t_event.type)
 	{
 		//mouseButtonDown();
+		
 	}
 	else if (sf::Event::MouseButtonReleased == t_event.type)
 	{
 		//mouseButtonUp();
 
-		
+		float spreadAmt = 30.f; // the amount the bullets spread
+		m_bulletManager.initNewBullet(m_player.getPosition(), m_mousePosGlobal, spreadAmt);
 	}
 }
 
-// MOVE TO A NEW FILE
+// TO DO:  MOVE TO A NEW FILE
 void GamePlay::spawnTiles()
 {
 	LevelLoader levelLoader;
@@ -98,7 +102,7 @@ void GamePlay::spawnTiles()
 
 	int xBackBig = -1;
 	int heightBig = 4; // height of tiles on the diagonal (how many level tiles will spawn)
-	float widthBig = 1024.f;
+	float widthBig = 2048.f; // change this to change distance between tile sets
 	float xOffset = 0.f;
 	float yOffset = 0.f;
 	

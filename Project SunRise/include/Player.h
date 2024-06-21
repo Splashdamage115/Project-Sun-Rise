@@ -11,6 +11,7 @@ public:
 	Player();
 
 	virtual void update()override;
+	virtual sf::Vector2f getPosition()override { return m_body->getPosition(); }
 private:
 	std::shared_ptr<sf::Sprite> m_body;
 	sf::Texture m_texture;

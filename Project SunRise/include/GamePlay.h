@@ -8,6 +8,7 @@
 // for debugging purposes
 #include "SimpleButton.h"
 #include "LevelLoader.h"
+#include "BulletManager.h"
 
 class GamePlay : public GameMode
 {
@@ -27,6 +28,8 @@ private:
 
 	Player m_player;
 	std::vector<std::shared_ptr<sf::Sprite>> m_tiles;
+
+	BulletManager m_bulletManager;
 };
 
 #endif // !GAMEPLAY_H

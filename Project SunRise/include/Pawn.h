@@ -7,7 +7,7 @@ class Pawn
 {
 public:
 	virtual void update() = 0;
-
+	virtual sf::Vector2f getPosition() = 0; // TO DO: not too happy with this
 private:
 
 protected:

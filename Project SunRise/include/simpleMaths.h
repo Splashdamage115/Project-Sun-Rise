@@ -35,6 +35,16 @@ public:
 		displacement /= std::sqrtf(displacement.x * displacement.x + displacement.y * displacement.y);
 		return displacement;
 	}
+	static sf::Vector2f degreesToDisplacement(float t_angle)
+	{
+		float rad = degreesToRadians(t_angle);
+
+		sf::Vector2f disp;
+		disp.x = std::cos(rad);
+		disp.y = std::sin(rad);
+
+		return disp;
+	}
 	static float degreesToRadians(float t_degrees)
 	{
 		float radians = t_degrees * (PI / 180.0f);
