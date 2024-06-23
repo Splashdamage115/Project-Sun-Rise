@@ -1,4 +1,5 @@
 #include "GamePlay.h"
+#include "TextureLoader.h"
 
 /// <summary>
 /// default constructor
@@ -7,7 +8,16 @@ GamePlay::GamePlay()
 {
 	spawnTiles();
 
-	
+	newPawnInfo playerInfo;
+	playerInfo.level = 0; // player wont have a level system for now
+	playerInfo.lockCamera = true;
+	playerInfo.movementType = InputType::Keyboard;
+	playerInfo.moveSpeed = 300.f;
+	playerInfo.spawnPosition = sf::Vector2f(200.f, 200.f);
+	playerInfo.texture = TextureLoader::getInstance().getTexture(".\\ASSETS\\IMAGES\\Misc\\Player.png");
+	m_player.init(playerInfo);
+
+	m_enemyManager.init();
 }
 
 /// <summary>
@@ -47,7 +57,10 @@ void GamePlay::events(sf::Event& t_event)
 /// <param name="t_event">use this for the key press</param>
 void GamePlay::processKeys(sf::Event& t_event)
 {
-
+	if (sf::Keyboard::Space == t_event.key.code)
+	{
+		m_enemyManager.spawnNewEnemy(0, m_tiles);
+	}
 }
 
 /// <summary>
@@ -58,6 +71,8 @@ void GamePlay::update()
 {
 	m_player.update();	
 	m_bulletManager.updateBullets();
+	m_enemyManager.update();
+	m_enemyManager.checkHits(m_bulletManager.getBulets());
 }
 
 /// <summary>
@@ -142,6 +157,10 @@ void GamePlay::spawnTiles()
 		}
 		xBack = -1;
 	}
+
+
+
+
 
 	std::sort(heights.begin(), heights.end());
 

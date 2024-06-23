@@ -24,6 +24,8 @@
     <ClCompile Include="src\BulletManager.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\CollisionDetector.cpp" />
+    <ClCompile Include="src\EnemyManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameMode.cpp" />
     <ClCompile Include="src\GamePlay.cpp" />
@@ -33,7 +35,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Pawn.cpp" />
-    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\RenderObject.cpp" />
     <ClCompile Include="src\Settings.cpp" />
     <ClCompile Include="src\TileLookupTable.cpp" />
@@ -46,7 +48,9 @@
     <ClInclude Include="include\BulletManager.h" />
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\CollisionDetector.h" />
     <ClInclude Include="include\DEBUG.h" />
+    <ClInclude Include="include\EnemyManager.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameMode.h" />
     <ClInclude Include="include\GamePlay.h" />
@@ -57,12 +61,13 @@
     <ClInclude Include="include\LevelLoader.h" />
     <ClInclude Include="include\Menu.h" />
     <ClInclude Include="include\Pawn.h" />
-    <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\Character.h" />
     <ClInclude Include="include\RenderObject.h" />
     <ClInclude Include="include\Settings.h" />
     <ClInclude Include="include\SettingsStorage.h" />
     <ClInclude Include="include\SimpleButton.h" />
     <ClInclude Include="include\simpleMaths.h" />
+    <ClInclude Include="include\TextureLoader.h" />
     <ClInclude Include="include\TileHolder.h" />
     <ClInclude Include="include\TileLookupTable.h" />
     <ClInclude Include="include\TileYamlLoader.h" />

@@ -42,6 +42,8 @@ public:
 	}
 	void setScale(sf::Vector2f t_newScale) { m_sprite.setScale(t_newScale); }
 	sf::Vector2f getPosition() { return m_sprite.getPosition(); }
+	sf::FloatRect getGlobalBounds() { return m_sprite.getGlobalBounds(); }
+	sf::Sprite getSprite() { return m_sprite; }
 private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;

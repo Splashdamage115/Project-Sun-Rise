@@ -10,9 +10,10 @@ public:
 
 	void initNewBullet(sf::Vector2f t_pawnPos, sf::Vector2f t_aimPos, float t_spread);
 	void updateBullets();
+
+	std::vector<Bullet>& getBulets() { return m_bullets; }
 private:
 	std::vector<Bullet> m_bullets;
-	std::vector<sf::Texture> m_bulletTextures;
 };
 
 #endif // !BULLET_MANAGER_H

@@ -9,6 +9,8 @@ Bullet::Bullet()
 
 void Bullet::init(sf::Vector2f t_start, sf::Vector2f t_aim, float t_bulletSpeed, std::shared_ptr<AnimatedSprite> t_body, float t_spread)
 {
+    active = true;
+
     body = t_body;
     RenderObject::getInstance().add(body);
 
@@ -26,11 +28,21 @@ void Bullet::init(sf::Vector2f t_start, sf::Vector2f t_aim, float t_bulletSpeed,
 
 void Bullet::update()
 {
-    body->update();
-    body->setPosition(body->getPosition() + (displacement * Game::deltaTime));
+    if(active)
+    {
+        body->update();
+        body->setPosition(body->getPosition() + (displacement * Game::deltaTime));
+    }
 }
 
 sf::Vector2f Bullet::getPos()
 {
     return body->getPosition();
+}
+
+void Bullet::deactivate()
+{
+    active = false;
+    body->setActive(false);
+    body->setPosition(sf::Vector2f(-100000.f, -100000.f));
 }

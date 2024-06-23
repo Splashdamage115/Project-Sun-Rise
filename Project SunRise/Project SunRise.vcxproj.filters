@@ -64,6 +64,12 @@
     <Filter Include="Header Files\LevelEditor">
       <UniqueIdentifier>{816394d1-1ca0-4c4f-8341-c3beb95ea1b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Library">
+      <UniqueIdentifier>{7d3579b4-3f6b-42a9-a54c-7cc9551d2d32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Libraries">
+      <UniqueIdentifier>{ee5d0148-7583-47ed-b9ef-2bd6743c5f26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Button.cpp">
@@ -96,7 +102,7 @@
     <ClCompile Include="src\AnimatedSprite.cpp">
       <Filter>Source Files\Gloabals</Filter>
     </ClCompile>
-    <ClCompile Include="src\Player.cpp">
+    <ClCompile Include="src\Character.cpp">
       <Filter>Source Files\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="src\Pawn.cpp">
@@ -125,6 +131,12 @@
     </ClCompile>
     <ClCompile Include="src\BulletManager.cpp">
       <Filter>Source Files\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnemyManager.cpp">
+      <Filter>Source Files\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CollisionDetector.cpp">
+      <Filter>Resource Files\Libraries</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -284,7 +296,7 @@
     <ClInclude Include="include\simpleMaths.h">
       <Filter>Header Files\Globals</Filter>
     </ClInclude>
-    <ClInclude Include="include\Player.h">
+    <ClInclude Include="include\Character.h">
       <Filter>Header Files\GamePlay</Filter>
     </ClInclude>
     <ClInclude Include="include\Pawn.h">
@@ -316,6 +328,15 @@
     </ClInclude>
     <ClInclude Include="include\BulletManager.h">
       <Filter>Header Files\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TextureLoader.h">
+      <Filter>Header Files\Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EnemyManager.h">
+      <Filter>Header Files\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CollisionDetector.h">
+      <Filter>Resource Files\Libraries</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

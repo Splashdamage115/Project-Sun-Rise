@@ -1,11 +1,8 @@
 #include "BulletManager.h"
+#include "TextureLoader.h"
 
 BulletManager::BulletManager()
 {
-	// will need to load all bullets here somehow
-	sf::Texture newTexture;
-	newTexture.loadFromFile(".\\ASSETS\\IMAGES\\Misc\\BulletAnimBasic.png");
-	m_bulletTextures.push_back(newTexture);
 }
 
 // implement spread here somehow
@@ -17,7 +14,7 @@ void BulletManager::initNewBullet(sf::Vector2f t_pawnPos, sf::Vector2f t_aimPos,
 	std::shared_ptr<AnimatedSprite> bulletSprite;
 	
 	// sort out what sprite is required by the gun here
-	bulletSprite = std::make_shared<AnimatedSprite>(0.1f, m_bulletTextures.at(0));
+	bulletSprite = std::make_shared<AnimatedSprite>(0.1f, *TextureLoader::getInstance().getTexture(".\\ASSETS\\IMAGES\\Misc\\BulletAnimBasic.png"));
 	// frames for the bullet animation
 	bulletSprite->addFrame(sf::IntRect(0, 0, 16, 16));
 	bulletSprite->addFrame(sf::IntRect(16, 0, 16, 16));

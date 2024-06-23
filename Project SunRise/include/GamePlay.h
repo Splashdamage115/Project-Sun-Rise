@@ -2,13 +2,14 @@
 #define GAMEPLAY_H
 
 #include "GameMode.h"
-#include "Player.h"
+#include "Character.h"
 #include "TileLookupTable.h"
 
 // for debugging purposes
 #include "SimpleButton.h"
 #include "LevelLoader.h"
 #include "BulletManager.h"
+#include "EnemyManager.h"
 
 class GamePlay : public GameMode
 {
@@ -26,10 +27,11 @@ private:
 
 	void spawnTiles();
 
-	Player m_player;
+	Character m_player;
 	std::vector<std::shared_ptr<sf::Sprite>> m_tiles;
 
 	BulletManager m_bulletManager;
+	EnemyManager m_enemyManager;
 };
 
 #endif // !GAMEPLAY_H
