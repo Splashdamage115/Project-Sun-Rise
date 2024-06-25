@@ -1,7 +1,7 @@
 #ifndef TILE_LOOKUP_TABLE_CPP
 #define TILE_LOOKUP_TABLE_CPP
 
-#include <SFML/Graphics.hpp>
+#include "Library.h"
 #include "TileHolder.h"
 
 class TileLookupTable

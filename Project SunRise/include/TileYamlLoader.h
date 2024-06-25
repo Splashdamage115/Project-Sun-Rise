@@ -1,9 +1,8 @@
 #ifndef TILE_YAML_LOADER_H
 #define TILE_YAML_LOADER_H
 
-#include <vector>
+#include "Library.h"
 #include <fstream>
-#include <iostream>
 #include "yaml-cpp\yaml.h"
 #include "Globals.h"
 #include "TileHolder.h"

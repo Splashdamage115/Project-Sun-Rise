@@ -1,8 +1,7 @@
 #ifndef SIMPLE_MATHS_H
 #define SIMPLE_MATHS_H
 
-#include <SFML/Graphics.hpp>
-#include "DEBUG.h"
+#include "Library.h"
 
 #define PI 3.1415926535897932384626433f
 

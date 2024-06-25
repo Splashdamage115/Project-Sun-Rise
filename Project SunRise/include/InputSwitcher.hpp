@@ -1,7 +1,7 @@
 #ifndef INPUT_SWITCHER_HPP
 #define INPUT_SWITCHER_HPP
 
-#include <SFML/Graphics.hpp>
+#include "Library.h"
 #include "simpleMaths.h"
 
 enum class InputType

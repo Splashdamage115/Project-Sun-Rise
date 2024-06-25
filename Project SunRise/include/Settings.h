@@ -3,7 +3,6 @@
 
 #include "GameMode.h"
 #include "SimpleButton.h"
-#include <vector>
 
 class Settings : public GameMode
 {

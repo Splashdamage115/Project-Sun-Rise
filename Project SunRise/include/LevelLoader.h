@@ -1,10 +1,9 @@
 #ifndef LEVEL_LOADER_H
 #define LEVEL_LOADER_H
 
+#include "Library.h"
 #include <fstream>
 #include <iterator>
-#include <vector>
-#include <string>
 
 class LevelLoader
 {

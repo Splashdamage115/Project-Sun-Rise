@@ -1,7 +1,7 @@
 #ifndef ANIMATED_SPRITE_H
 #define ANIMATED_SPRITE_H
 
-#include <SFML/Graphics.hpp>
+#include "Library.h"
 
 class AnimatedSprite : public sf::Drawable
 {

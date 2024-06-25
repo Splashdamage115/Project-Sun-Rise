@@ -1,7 +1,7 @@
 #ifndef TILE_TYPE_H
 #define TILE_TYPE_H
 
-#include <SFML/Graphics.hpp>
+#include "Library.h"
 
 struct TileType {
     sf::Texture tileTexture;

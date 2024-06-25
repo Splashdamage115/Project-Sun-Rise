@@ -1,7 +1,7 @@
 #ifndef BULLET_H
 #define BULLET_H
 
-#include <SFML/Graphics.hpp>
+#include "Library.h"
 #include "AnimatedSprite.h"
 
 struct Bullet

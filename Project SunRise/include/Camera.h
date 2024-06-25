@@ -1,10 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "Globals.h"
-#include <SFML/Graphics/Vertex.hpp>
-#include <SFML/Graphics/View.hpp>
-
+#include "Library.h"
 
 class CameraTracker
 {
