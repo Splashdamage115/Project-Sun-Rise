@@ -23,6 +23,8 @@ public:
 	virtual void update() = 0;
 	virtual sf::Vector2f getPosition() = 0; // TO DO: not too happy with this
 
+	virtual void moveWithCollision(std::vector<std::shared_ptr<sf::Sprite>>& t_walls) = 0;
+
 	virtual void applyDamage(int t_damage); // this can be overriden if armour is needed (player?)
 	virtual sf::FloatRect getBounds() = 0;
 	virtual sf::Sprite getSprite() = 0;

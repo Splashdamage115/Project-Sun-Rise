@@ -1,6 +1,7 @@
 #include "LevelEditor.h"
 #include "TileLookupTable.h"
 #include "GlobalFontStorage.h"
+#include "CollisionDetector.h"
 
 /// <summary>
 /// default constructor
@@ -155,13 +156,18 @@ void LevelEditor::processMouse(sf::Event& t_event)
 		{
 			for (int i = m_tiles.size() - 1; i >= 0; i--)
 			{
-
 				if (m_tiles.at(i)->getGlobalBounds().contains(m_mousePosGlobal))
 				{
-					m_level.at(i)++;
-					if (m_level.at(i) > MAX_TILE_NUM)
-						m_level.at(i) = MAX_TILE_NUM;
-					break;
+					if (m_tiles.at(i)->getGlobalBounds().contains(m_mousePosGlobal))
+					{
+						if(CollisionDetector::singlePixelTest(*m_tiles.at(i), m_mousePosGlobal))
+						{
+							m_level.at(i)++;
+							if (m_level.at(i) > MAX_TILE_NUM)
+								m_level.at(i) = MAX_TILE_NUM;
+								break;
+						}
+					}
 				}
 			}
 		}
@@ -174,10 +180,13 @@ void LevelEditor::processMouse(sf::Event& t_event)
 
 				if (m_tiles.at(i)->getGlobalBounds().contains(m_mousePosGlobal))
 				{
-					m_level.at(i)--;
-					if (m_level.at(i) <= 0)
-						m_level.at(i) = 1;
-					break;
+					if (CollisionDetector::singlePixelTest(*m_tiles.at(i), m_mousePosGlobal))
+					{
+						m_level.at(i)--;
+						if (m_level.at(i) <= 0)
+							m_level.at(i) = 1;
+						break;
+					}
 				}
 			}
 		}

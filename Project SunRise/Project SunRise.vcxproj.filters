@@ -64,9 +64,6 @@
     <Filter Include="Header Files\LevelEditor">
       <UniqueIdentifier>{816394d1-1ca0-4c4f-8341-c3beb95ea1b1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Library">
-      <UniqueIdentifier>{7d3579b4-3f6b-42a9-a54c-7cc9551d2d32}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\Libraries">
       <UniqueIdentifier>{ee5d0148-7583-47ed-b9ef-2bd6743c5f26}</UniqueIdentifier>
     </Filter>
@@ -139,6 +136,9 @@
       <Filter>Resource Files\Libraries</Filter>
     </ClCompile>
     <ClCompile Include="src\Level.cpp">
+      <Filter>Source Files\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Movement.cpp">
       <Filter>Source Files\GamePlay</Filter>
     </ClCompile>
   </ItemGroup>
@@ -346,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="include\Library.h">
       <Filter>Header Files\Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Movement.h">
+      <Filter>Header Files\GamePlay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

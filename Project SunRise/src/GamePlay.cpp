@@ -1,12 +1,13 @@
 #include "GamePlay.h"
 #include "TextureLoader.h"
+#include "RenderObject.h"
 
 /// <summary>
 /// default constructor
 /// </summary>
 GamePlay::GamePlay()
 {
-	spawnTiles();
+	m_levelHolder.generateNewLevel();
 
 	newPawnInfo playerInfo;
 	playerInfo.level = 0; // player wont have a level system for now
@@ -59,7 +60,7 @@ void GamePlay::processKeys(sf::Event& t_event)
 {
 	if (sf::Keyboard::Space == t_event.key.code)
 	{
-		m_enemyManager.spawnNewEnemy(0, m_tiles);
+		m_enemyManager.spawnNewEnemy(m_levelHolder.getTiles(m_player.getPosition()));
 	}
 }
 
@@ -69,7 +70,8 @@ void GamePlay::processKeys(sf::Event& t_event)
 /// <param name="t_deltaTime">delta time passed from game</param>
 void GamePlay::update()
 {
-	m_player.update();	
+	m_player.update();
+	m_player.moveWithCollision(m_levelHolder.getColliders());
 	m_bulletManager.updateBullets();
 	m_enemyManager.update();
 	m_enemyManager.checkHits(m_bulletManager.getBulets());
@@ -96,82 +98,5 @@ void GamePlay::processMouse(sf::Event& t_event)
 
 		float spreadAmt = 30.f; // the amount the bullets spread
 		m_bulletManager.initNewBullet(m_player.getPosition(), m_mousePosGlobal, spreadAmt);
-	}
-}
-
-// TO DO:  MOVE TO A NEW FILE
-void GamePlay::spawnTiles()
-{
-	LevelLoader levelLoader;
-	std::vector<int>level = levelLoader.readFileToBuffer(rand() % MAP_AMT + 1);
-
-
-	RenderObject::getInstance().clearBG();
-	m_tiles.clear();
-
-	int xBack = -1;
-	std::vector<float> heights;
-	float scaleFactor = 1.f;
-	int height = 16;
-	float width = 62.f;
-
-	int xBackBig = -1;
-	int heightBig = 4; // height of tiles on the diagonal (how many level tiles will spawn)
-	float widthBig = 2048.f; // change this to change distance between tile sets
-	float xOffset = 0.f;
-	float yOffset = 0.f;
-	
-	// 16 is the amount of level tiles spawned
-	for(unsigned int u = 0; u < 16; u++)
-	{
-		if (u % heightBig == 0)
-			xBackBig++;
-
-		xOffset = -((xBackBig) * (widthBig)) + ((u % heightBig) * (widthBig));
-		yOffset = (u % heightBig) * (widthBig / 2.f) + (xBackBig * (widthBig / 2.f));
-
-		level = levelLoader.readFileToBuffer(rand() % 7 + 1);
-
-		for (unsigned int i = 0; i < 256; i++)
-		{
-			if (i % height == 0)
-				xBack++;
-			std::shared_ptr<sf::Sprite> newTile;
-			newTile = std::make_shared<sf::Sprite>();
-			newTile->setTexture(TileLookupTable::getInstance().getNumber(level.at(i)).tileTexture);
-			newTile->setOrigin(newTile->getGlobalBounds().width / 2.f, newTile->getGlobalBounds().height / 2.f);
-			newTile->setScale(scaleFactor, scaleFactor);
-			newTile->setPosition(xOffset - ((xBack) * (width * scaleFactor)) + ((i % height) * (width * scaleFactor)), yOffset + (i % height) * (width / 2.f * scaleFactor) + (xBack * (width / 2.f * scaleFactor)));
-			bool addNew = true;
-			for (unsigned int u = 0; u < heights.size(); u++)
-			{
-				if (newTile->getPosition().y == heights.at(u))
-				{
-					addNew = false;
-					break;
-				}
-			}
-			if (addNew)
-				heights.push_back(newTile->getPosition().y);
-			m_tiles.push_back(newTile);
-		}
-		xBack = -1;
-	}
-
-
-
-
-
-	std::sort(heights.begin(), heights.end());
-
-	for (unsigned int u = 0; u < heights.size(); u++)
-	{
-		for (unsigned int i = 0; i < m_tiles.size(); i++)
-		{
-			if (m_tiles.at(i)->getPosition().y == heights.at(u))
-			{
-				RenderObject::getInstance().addBG(m_tiles.at(i));
-			}
-		}
 	}
 }

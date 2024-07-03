@@ -115,6 +115,12 @@ public:
 
 		return intersects;
 	}
+	static bool positionInCircle(sf::Vector2f t_centerPos, float t_radius, sf::Vector2f t_pos)
+	{
+		float distBetweenPoints = squareDistancebetweenPoints(t_centerPos, t_pos);
+		float radSize = t_radius * t_radius;
+		return (distBetweenPoints <= radSize);
+	}
 };
 
 #endif // !SIMPLE_MATHS_H

@@ -4,6 +4,7 @@
 #include "GameMode.h"
 #include "Character.h"
 #include "TileLookupTable.h"
+#include "Level.h"
 
 // for debugging purposes
 #include "SimpleButton.h"
@@ -25,13 +26,11 @@ private:
 	void processKeys(sf::Event& t_event)override;      // handles all key inputs
 	void processMouse(sf::Event& t_event)override;     // handles all mouse events
 
-	void spawnTiles();
-
 	Character m_player;
-	std::vector<std::shared_ptr<sf::Sprite>> m_tiles;
 
 	BulletManager m_bulletManager;
 	EnemyManager m_enemyManager;
+	Level m_levelHolder;
 };
 
 #endif // !GAMEPLAY_H

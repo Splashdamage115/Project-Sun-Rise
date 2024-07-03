@@ -9,7 +9,8 @@ class Character : public Pawn
 public:
 	Character();
 	virtual void init(newPawnInfo t_typeInfo)override;
-
+	
+	virtual void moveWithCollision(std::vector<std::shared_ptr<sf::Sprite>>& t_walls)override;
 
 	virtual void update()override;
 	virtual sf::Vector2f getPosition()override { return m_body->getPosition(); }
@@ -19,6 +20,7 @@ public:
 	virtual void dead()override;
 private:
 	std::shared_ptr<sf::Sprite> m_body;
+	std::shared_ptr<sf::CircleShape> m_collisionCircle;
 	std::unique_ptr<InputBasic> m_inputType;
 	CameraTracker m_followCam;
 };

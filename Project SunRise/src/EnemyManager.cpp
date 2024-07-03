@@ -11,7 +11,7 @@ void EnemyManager::init()
 }
 
 
-void EnemyManager::spawnNewEnemy(int t_spawnCluster, std::vector<std::shared_ptr<sf::Sprite>>& m_tiles)
+void EnemyManager::spawnNewEnemy(std::vector<LevelTile>& m_tiles)
 {
 	std::shared_ptr<Pawn> newEnemy;
 
@@ -26,9 +26,9 @@ void EnemyManager::spawnNewEnemy(int t_spawnCluster, std::vector<std::shared_ptr
 
 	int position = rand() % 256;
 
-	int picked = position + (t_spawnCluster * 256);
+	int picked = position;
 
-	sf::Vector2f pos = m_tiles.at(picked)->getPosition() + sf::Vector2f(16.f, 8.f);
+	sf::Vector2f pos = m_tiles.at(picked).m_tile->getPosition() + sf::Vector2f(16.f, 8.f);
 
 	TargetInfo.spawnPosition = pos;
 

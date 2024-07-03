@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "Game.h"
 #include "RenderObject.h"
+#include "Movement.h"
 
 Character::Character()
 {
@@ -16,9 +17,19 @@ void Character::init(newPawnInfo t_typeInfo)
 	//m_bPlayerody->setFillColor(sf::Color::Cyan);
 	//m_texture.loadFromFile(".\\ASSETS\\IMAGES\\Misc\\Player.png");
 
+	m_collisionCircle = std::make_shared<sf::CircleShape>();
+
+	m_collisionCircle->setRadius(25.f);
+	m_collisionCircle->setPosition(t_typeInfo.spawnPosition);
+	m_collisionCircle->setOrigin(m_collisionCircle->getRadius(), m_collisionCircle->getRadius());
+	m_collisionCircle->setFillColor(sf::Color::Transparent);
+	m_collisionCircle->setOutlineColor(sf::Color::Cyan);
+	m_collisionCircle->setOutlineThickness(1.f);
+
+
 	m_body->setTexture(*t_typeInfo.texture);
 	m_body->setPosition(t_typeInfo.spawnPosition);
-	m_body->setOrigin(m_body->getGlobalBounds().width, m_body->getGlobalBounds().height);
+	m_body->setOrigin(m_collisionCircle->getRadius(), m_collisionCircle->getRadius() + 10.f);
 
 	RenderObject::getInstance().add(m_body);
 
@@ -40,13 +51,33 @@ void Character::init(newPawnInfo t_typeInfo)
 
 	if (m_activeCamera)
 		m_followCam.setCameraType(CameraTracker::CameraType::Delayed_Follow);
+
+	
+	RenderObject::getInstance().add(m_collisionCircle);
+	 
+}
+
+void Character::moveWithCollision(std::vector<std::shared_ptr<sf::Sprite>>& t_walls)
+{
+	if (m_active)
+	{
+		Movement cols; // Ensure Movement class is correctly implemented
+		sf::Vector2f movement = m_inputType->calculateDisplacement() * m_moveSpeed * Game::deltaTime;
+		sf::Vector2f position = m_body->getPosition();
+
+		// Ensure calculateIntersects returns the corrected movement vector
+		sf::Vector2f newMovement = cols.calculateIntersects(t_walls, position, 25.f, movement);
+
+		// Move the character and collision circle with the corrected movement
+		m_body->move(newMovement);
+		m_collisionCircle->move(newMovement);
+	}
 }
 
 void Character::update()
 {
 	if (m_active)
 	{
-		m_body->move(m_inputType->calculateDisplacement() * m_moveSpeed * Game::deltaTime);
 		if(m_activeCamera)
 			m_followCam.update(m_body->getPosition());
 	}

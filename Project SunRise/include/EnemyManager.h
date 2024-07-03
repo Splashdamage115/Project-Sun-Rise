@@ -3,6 +3,7 @@
 
 #include "Character.h"
 #include "Bullet.h"
+#include "Level.h"
 
 class EnemyManager
 {
@@ -10,7 +11,7 @@ public:
 	EnemyManager();
 
 	void init();
-	void spawnNewEnemy(int t_spawnCluster, std::vector<std::shared_ptr<sf::Sprite>>& m_tiles);
+	void spawnNewEnemy(std::vector<LevelTile>& m_tiles);
 
 	void update();
 	void checkHits(std::vector<Bullet>& t_bullets);

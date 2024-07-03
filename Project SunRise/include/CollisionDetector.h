@@ -21,4 +21,5 @@ class CollisionDetector
 public:
 	//bool static collision(const sf::Sprite& object1, const sf::Sprite& object2);
 	bool static pixelPerfectTest(const sf::Sprite& sprite1, const sf::Sprite& sprite2, sf::Uint8 alphaLimit = 0);
+	bool static singlePixelTest(const sf::Sprite& sprite, sf::Vector2f& mousePosition, sf::Uint8 alphaLimit = 0);
 };
