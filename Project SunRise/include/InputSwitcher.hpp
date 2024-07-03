@@ -6,13 +6,15 @@
 
 enum class InputType
 {
-	None, Keyboard
+	None, Keyboard, RunTowardsPlayer
 };
 
 class InputBasic
 {
 public:
 	virtual sf::Vector2f calculateDisplacement() = 0;
+	virtual void setPlayerPointer(std::shared_ptr<sf::Vector2f>& t_player) { ;/*Dont set*/ }
+	virtual void setOwnPosition(std::shared_ptr<sf::Vector2f>& t_pos) { ;/*Dont set*/ }
 private:
 
 };
@@ -26,6 +28,24 @@ public:
 	}
 private:
 
+};
+
+class RunTowardsPlayer : public InputBasic
+{
+public:
+	virtual sf::Vector2f calculateDisplacement()override
+	{
+		return math::displacement(*m_position.lock(), *m_playerPosition.lock());
+	}
+	void setPlayerPointer(std::shared_ptr<sf::Vector2f>& t_player)override {
+		m_playerPosition = t_player;
+	}
+	void setOwnPosition(std::shared_ptr<sf::Vector2f>& t_pos)override {
+		m_position = t_pos;
+	}
+private:
+	std::weak_ptr<sf::Vector2f> m_playerPosition;
+	std::weak_ptr<sf::Vector2f> m_position;
 };
 
 class KeyboardInput : public InputBasic

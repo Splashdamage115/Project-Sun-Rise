@@ -141,6 +141,18 @@ void Level::generateWalls(float t_xOff, float t_yOff, std::vector<float>& t_heig
 		m_collidingBox.push_back(newBox);
 	}
 
+	for (unsigned int i = 239; i < 256; i++)
+	{
+		std::shared_ptr<sf::Sprite> newBox;
+		newBox = std::make_shared<sf::Sprite>();
+		newBox->setTexture(*TextureLoader::getInstance().getTexture(".\\ASSETS\\IMAGES\\Tile\\WallLeftBottom.png"));
+		newBox->setPosition(t_xOff - ((xBack) * (width * scaleFactor)) + ((i % height) * (width * scaleFactor)), t_yOff + (i % height) * (width / 2.f * scaleFactor) + (xBack * (width / 2.f * scaleFactor)));
+		newBox->setOrigin(newBox->getGlobalBounds().width / 2.f, newBox->getGlobalBounds().height / 2.f);
+
+
+		m_collidingBox.push_back(newBox);
+	}
+
 	xBack = 0;
 
 	for (unsigned int i = 0; i < 16; i++)
@@ -154,6 +166,7 @@ void Level::generateWalls(float t_xOff, float t_yOff, std::vector<float>& t_heig
 
 		m_collidingBox.push_back(newBox);
 	}
+	
 }
 
 void Level::generateTileCluster(float t_xOff, float t_yOff, std::vector<int>& t_level, std::vector<float>& t_heights)

@@ -60,7 +60,7 @@ void GamePlay::processKeys(sf::Event& t_event)
 {
 	if (sf::Keyboard::Space == t_event.key.code)
 	{
-		m_enemyManager.spawnNewEnemy(m_levelHolder.getTiles(m_player.getPosition()));
+		m_enemyManager.spawnNewEnemy(m_levelHolder.getTiles(*m_player.getPosition()), m_player.getPosition());
 	}
 }
 
@@ -97,6 +97,6 @@ void GamePlay::processMouse(sf::Event& t_event)
 		//mouseButtonUp();
 
 		float spreadAmt = 30.f; // the amount the bullets spread
-		m_bulletManager.initNewBullet(m_player.getPosition(), m_mousePosGlobal, spreadAmt);
+		m_bulletManager.initNewBullet(*m_player.getPosition(), m_mousePosGlobal, spreadAmt);
 	}
 }

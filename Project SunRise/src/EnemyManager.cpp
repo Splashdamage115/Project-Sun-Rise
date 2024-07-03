@@ -11,7 +11,7 @@ void EnemyManager::init()
 }
 
 
-void EnemyManager::spawnNewEnemy(std::vector<LevelTile>& m_tiles)
+void EnemyManager::spawnNewEnemy(std::vector<LevelTile>& m_tiles, std::shared_ptr<sf::Vector2f>& t_player)
 {
 	std::shared_ptr<Pawn> newEnemy;
 
@@ -19,8 +19,8 @@ void EnemyManager::spawnNewEnemy(std::vector<LevelTile>& m_tiles)
 	newPawnInfo TargetInfo;
 	TargetInfo.level = 1;
 	TargetInfo.lockCamera = false;
-	TargetInfo.movementType = InputType::None;
-	TargetInfo.moveSpeed = 0.f;
+	TargetInfo.movementType = InputType::RunTowardsPlayer;
+	TargetInfo.moveSpeed = 100.f;
 
 
 
@@ -34,6 +34,7 @@ void EnemyManager::spawnNewEnemy(std::vector<LevelTile>& m_tiles)
 
 	TargetInfo.texture = TextureLoader::getInstance().getTexture(".\\ASSETS\\IMAGES\\Misc\\Target.png");
 	newEnemy->init(TargetInfo);
+	newEnemy->setPlayerPosition(t_player);
 
 	m_enemies.push_back(newEnemy);
 }
@@ -43,6 +44,7 @@ void EnemyManager::update()
 	for (unsigned int i = 0; i < m_enemies.size(); i++)
 	{
 		m_enemies.at(i)->update();
+		m_enemies.at(i)->move();
 	}
 }
 

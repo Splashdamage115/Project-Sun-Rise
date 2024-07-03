@@ -29,6 +29,8 @@ void Character::init(newPawnInfo t_typeInfo)
 
 	m_body->setTexture(*t_typeInfo.texture);
 	m_body->setPosition(t_typeInfo.spawnPosition);
+	m_position = std::make_shared<sf::Vector2f>();
+	*m_position = t_typeInfo.spawnPosition;
 	m_body->setOrigin(m_collisionCircle->getRadius(), m_collisionCircle->getRadius() + 10.f);
 
 	RenderObject::getInstance().add(m_body);
@@ -41,6 +43,9 @@ void Character::init(newPawnInfo t_typeInfo)
 		break;
 	case InputType::Keyboard:
 		m_inputType = std::make_unique<KeyboardInput>();
+		break;
+	case InputType::RunTowardsPlayer:
+		m_inputType = std::make_unique<RunTowardsPlayer>();
 		break;
 	default:
 		m_inputType = std::make_unique<NoneInput>();
@@ -71,6 +76,19 @@ void Character::moveWithCollision(std::vector<std::shared_ptr<sf::Sprite>>& t_wa
 		// Move the character and collision circle with the corrected movement
 		m_body->move(newMovement);
 		m_collisionCircle->move(newMovement);
+		*m_position = m_body->getPosition();
+	}
+}
+
+void Character::move()
+{
+	if (m_active)
+	{
+		sf::Vector2f movement = m_inputType->calculateDisplacement() * m_moveSpeed * Game::deltaTime;
+
+		m_body->move(movement);
+		m_collisionCircle->move(movement);
+		*m_position = m_body->getPosition();
 	}
 }
 
@@ -79,7 +97,7 @@ void Character::update()
 	if (m_active)
 	{
 		if(m_activeCamera)
-			m_followCam.update(m_body->getPosition());
+			m_followCam.update(*m_position);
 	}
 }
 
@@ -87,4 +105,5 @@ void Character::dead()
 {
 	m_active = false;
 	m_body->setPosition(sf::Vector2f(-200000.f, -200000.f));
+	*m_position = sf::Vector2f(-200000.f, -200000.f);
 }

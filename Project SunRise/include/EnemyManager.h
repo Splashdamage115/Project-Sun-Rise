@@ -11,7 +11,7 @@ public:
 	EnemyManager();
 
 	void init();
-	void spawnNewEnemy(std::vector<LevelTile>& m_tiles);
+	void spawnNewEnemy(std::vector<LevelTile>& m_tiles, std::shared_ptr<sf::Vector2f>& t_player);
 
 	void update();
 	void checkHits(std::vector<Bullet>& t_bullets);
